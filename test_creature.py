@@ -2,31 +2,31 @@ import unittest
 
 import pybullet as p
 
-import creature
+from creature import Creature, Motor
 
 
 class TestCreature(unittest.TestCase):
-    def testCreatExists(self):
-        self.assertIsNotNone(creature.Creature)
+    def test_creature_exists(self):
+        self.assertIsNotNone(Creature)
 
-    def testCreatureGetFlatLinks(self):
-        c = creature.Creature(gene_count=4)
+    def test_creature_get_flat_links(self):
+        c = Creature(gene_count=4)
         links = c.get_flat_links()
         self.assertEqual(len(links), 4)
 
-    def testExpLinks(self):
-        c = creature.Creature(gene_count=25)
+    def test_expanded_links(self):
+        c = Creature(gene_count=25)
         links = c.get_flat_links()
         exp_links = c.get_expanded_links()
         self.assertGreaterEqual(len(exp_links), len(links))
 
-    def testToXMLNotNone(self):
-        c = creature.Creature(gene_count=2)
+    def test_to_xml_not_none(self):
+        c = Creature(gene_count=2)
         xml_str = c.to_xml()
         self.assertIsNotNone(xml_str)
 
-    def testLoadXML(self):
-        c = creature.Creature(gene_count=20)
+    def test_load_xml(self):
+        c = Creature(gene_count=20)
         xml_str = c.to_xml()
         with open('test.urdf', 'w') as f:
             f.write(xml_str)
@@ -34,22 +34,22 @@ class TestCreature(unittest.TestCase):
         cid = p.loadURDF('test.urdf')
         self.assertIsNotNone(cid)
 
-    def testMotor(self):
-        m = creature.Motor(0.1, 0.5, 0.5)
+    def test_motor_exists(self):
+        m = Motor(0.1, 0.5, 0.5)
         self.assertIsNotNone(m)
 
-    def testMotorVal(self):
-        m = creature.Motor(0.1, 0.5, 0.5)
+    def test_motor_output(self):
+        m = Motor(0.1, 0.5, 0.5)
         self.assertEqual(m.get_output(), 1)
 
-    def testMotorVal2(self):
-        m = creature.Motor(0.6, 0.5, 0.5)
+    def test_motor_output2(self):
+        m = Motor(0.6, 0.5, 0.5)
         m.get_output()
         m.get_output()
         self.assertGreater(m.get_output(), 0)
 
-    def testDist(self):
-        c = creature.Creature(3)
+    def test_distance_travelled(self):
+        c = Creature(3)
         c.update_position((0, 0, 0))
         d1 = c.get_distance_travelled()
         c.update_position((1, 1, 1))
@@ -57,4 +57,5 @@ class TestCreature(unittest.TestCase):
         self.assertGreater(d2, d1)
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()

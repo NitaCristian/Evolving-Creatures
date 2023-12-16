@@ -7,61 +7,61 @@ import genome
 
 
 class GenomeTest(unittest.TestCase):
-    def testClassExists(self):
+    def test_class_exists(self):
         self.assertIsNotNone(genome.Genome)
 
-    def testRandomGene(self):
+    def test_random_gene(self):
         self.assertIsNotNone(genome.Genome.get_random_gene)
 
-    def testRandomGeneNotNone(self):
+    def test_random_gene_not_none(self):
         self.assertIsNotNone(genome.Genome.get_random_gene(5))
 
-    def testRandomGeneHasValues(self):
+    def test_random_gene_has_values(self):
         gene = genome.Genome.get_random_gene(5)
         self.assertIsNotNone(gene[0])
 
-    def testRandomGeneLength(self):
+    def test_random_gene_length(self):
         gene = genome.Genome.get_random_gene(20)
         self.assertEqual(len(gene), 20)
 
-    def testRandGeneIsNumpyArrays(self):
+    def test_rand_gene_is_numpy_arrays(self):
         gene = genome.Genome.get_random_gene(20)
         self.assertEqual(type(gene), np.ndarray)
 
-    def testRandomGenomeExists(self):
+    def test_random_genome_exists(self):
         data = genome.Genome.get_random_genome(20, 5)
         self.assertIsNotNone(data)
 
-    def testGeneSpecExist(self):
+    def test_gene_spec_exist(self):
         spec = genome.Genome.get_gene_spec()
         self.assertIsNotNone(spec)
 
-    def testGeneSpecHasLinkLength(self):
+    def test_gene_spec_has_link_length(self):
         spec = genome.Genome.get_gene_spec()
         self.assertIsNotNone(spec['link-length'])
 
-    def testGeneSpecHasLinkLength(self):
+    def test_gene_spec_has_link_length_ind(self):
         spec = genome.Genome.get_gene_spec()
         self.assertIsNotNone(spec['link-length']["ind"])
 
-    def testGeneSpecScale(self):
+    def test_gene_spec_scale(self):
         spec = genome.Genome.get_gene_spec()
         gene = genome.Genome.get_random_gene(20)
         self.assertGreater(gene[spec["link-length"]["ind"]], 0)
 
-    def testGeneToGeneDict(self):
+    def test_gene_to_gene_dict(self):
         spec = genome.Genome.get_gene_spec()
         gene = genome.Genome.get_random_gene(len(spec))
         gene_dict = genome.Genome.get_gene_dict(gene, spec)
         self.assertIn("link-recurrence", gene_dict)
 
-    def testGenomeToDict(self):
+    def test_genome_to_dict(self):
         spec = genome.Genome.get_gene_spec()
         dna = genome.Genome.get_random_genome(len(spec), 3)
         genome_dicts = genome.Genome.get_genome_dicts(dna, spec)
         self.assertEqual(len(genome_dicts), 3)
 
-    def testFlatLinks(self):
+    def test_flat_links(self):
         links = [
             genome.URDFLink(name="A", parent_name=None, recur=1),
             genome.URDFLink(name="B", parent_name="A", recur=2),
@@ -69,7 +69,7 @@ class GenomeTest(unittest.TestCase):
         ]
         self.assertIsNotNone(links)
 
-    def testExpandLinks(self):
+    def test_expand_links(self):
         links = [
             genome.URDFLink(name="A", parent_name="None", recur=1),
             genome.URDFLink(name="B", parent_name="A", recur=1),
@@ -80,49 +80,49 @@ class GenomeTest(unittest.TestCase):
         genome.Genome.expand_links(links[0], links[0].name, links, exp_links)
         self.assertEqual(len(exp_links), 6)
 
-    def testCrossover(self):
+    def test_crossover(self):
         g1 = [[1], [2], [3]]
         g2 = [[4], [5], [6]]
         for i in range(10):
             g3 = genome.Genome.crossover(g1, g2)
             self.assertGreater(len(g3), 0)
 
-    def test_point(self):
+    def test_point_mutate(self):
         g1 = np.array([[1.0], [2.0], [3.0]])
         g2 = genome.Genome.point_mutate(g1, rate=1, amount=0.25)
         self.assertFalse(np.array_equal(g1, g2))
 
-    def test_point_range(self):
+    def test_point_mutate_range(self):
         g1 = np.array([[1.0], [0.0], [1.0], [0.0]])
         for i in range(100):
             g2 = genome.Genome.point_mutate(g1, rate=1, amount=0.25)
             self.assertLessEqual(np.max(g2), 1.0)
             self.assertGreaterEqual(np.min(g2), 0.0)
 
-    def test_shrink(self):
+    def test_shrink_mutate(self):
         g1 = np.array([[1.0], [2.0]])
         g2 = genome.Genome.shrink_mutate(g1, rate=1.0)
-        # should def. shrink as rate = 1
+        # should definitely shrink as rate = 1
         self.assertEqual(len(g2), 1)
 
-    def test_shrink2(self):
+    def test_shrink_mutate2(self):
         g1 = np.array([[1.0], [2.0]])
         g2 = genome.Genome.shrink_mutate(g1, rate=0.0)
         # should not shrink as rate = 0
         self.assertEqual(len(g2), 2)
 
-    def test_shrink3(self):
+    def test_shrink_mutate3(self):
         g1 = np.array([[1.0]])
         g2 = genome.Genome.shrink_mutate(g1, rate=1.0)
         # should not shrink if already len 1
         self.assertEqual(len(g2), 1)
 
-    def test_grow1(self):
+    def test_grow_mutate1(self):
         g1 = np.array([[1.0], [2.0]])
         g2 = genome.Genome.grow_mutate(g1, rate=1)
         self.assertGreater(len(g2), len(g1))
 
-    def test_grow2(self):
+    def test_grow_mutate2(self):
         g1 = np.array([[1.0], [2.0]])
         g2 = genome.Genome.grow_mutate(g1, rate=0)
         self.assertEqual(len(g2), len(g1))
@@ -163,4 +163,5 @@ class GenomeTest(unittest.TestCase):
         self.assertTrue(np.array_equal(g1, g2))
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

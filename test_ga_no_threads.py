@@ -1,9 +1,3 @@
-# If you on a Windows machine with any Python version 
-# or an M1 mac with any Python version
-# or an Intel Mac with Python > 3.7
-# the multi-threaded version does not work
-# so instead, you can use this version. 
-
 import unittest
 
 import numpy as np
@@ -15,26 +9,31 @@ import simulation
 
 
 class TestGA(unittest.TestCase):
-    def testBasicGA(self):
-        pop = population.Population(pop_size=10,
-                                    gene_count=3)
+    def test_basic_ga(self):
+        pop = population.Population(pop_size=10, gene_count=3)
         # sim = simulation.ThreadedSim(pool_size=1)
         sim = simulation.Simulation()
 
         for iteration in range(1000):
-            # this is a non-threaded version 
+            # This is a non-threaded version
             # where we just call run_creature instead
             # of eval_population
             for cr in pop.creatures:
                 sim.run_creature(cr, 2400)
                 # sim.eval_population(pop, 2400)
-            fits = [cr.get_distance_travelled()
-                    for cr in pop.creatures]
-            links = [len(cr.get_expanded_links())
-                     for cr in pop.creatures]
-            print(iteration, "fittest:", np.round(np.max(fits), 3),
-                  "mean:", np.round(np.mean(fits), 3), "mean links", np.round(np.mean(links)), "max links",
-                  np.round(np.max(links)))
+            fits = [cr.get_distance_travelled() for cr in pop.creatures]
+            links = [len(cr.get_expanded_links()) for cr in pop.creatures]
+            print(
+                iteration,
+                "fittest:",
+                np.round(np.max(fits), 3),
+                "mean:",
+                np.round(np.mean(fits), 3),
+                "mean links",
+                np.round(np.mean(links)),
+                "max links",
+                np.round(np.max(links)),
+            )
             fit_map = population.Population.get_fitness_map(fits)
             new_creatures = []
             for i in range(len(pop.creatures)):
@@ -66,4 +65,5 @@ class TestGA(unittest.TestCase):
         self.assertNotEqual(fits[0], 0)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()

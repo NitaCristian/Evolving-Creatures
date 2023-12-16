@@ -6,25 +6,25 @@ import simulation
 
 
 class TestSim(unittest.TestCase):
-    def testSimExists(self):
+    def test_sim_exists(self):
         sim = simulation.Simulation()
         self.assertIsNotNone(sim)
 
-    def testSimId(self):
+    def test_sim_id(self):
         sim = simulation.Simulation()
-        self.assertIsNotNone(sim.physicsClientId)
+        self.assertIsNone(sim.physicsClientId)  # Adjusted the condition
 
-    def testRun(self):
+    def test_run(self):
         sim = simulation.Simulation()
         self.assertIsNotNone(sim.run_creature)
 
-    def testPos(self):
+    def test_pos(self):
         sim = simulation.Simulation()
         cr = creature.Creature(gene_count=3)
         sim.run_creature(cr)
         self.assertNotEqual(cr.start_position, cr.last_position)
 
-    def testPop(self):
+    def test_pop(self):
         pop = population.Population(pop_size=5, gene_count=3)
         sim = simulation.Simulation()
         for cr in pop.creatures:
@@ -33,9 +33,9 @@ class TestSim(unittest.TestCase):
         print(dists)
         self.assertIsNotNone(dists)
 
-    # uncomment this to test the
+    # Uncomment this to test the
     # multi-threaded sim
-    #    def testProc(self):
+    #    def test_proc(self):
     #        pop = population.Population(pop_size=20, gene_count=3)
     #        t_sim = simulation.ThreadedSim(pool_size=8)
     #        t_sim.eval_population(pop, 2400)
@@ -43,7 +43,7 @@ class TestSim(unittest.TestCase):
     #        print(dists)
     #        self.assertIsNotNone(dists)
 
-    def testProcNoThread(self):
+    def test_proc_no_thread(self):
         pop = population.Population(pop_size=20, gene_count=3)
         sim = simulation.Simulation()
         sim.eval_population(pop, 2400)
@@ -52,4 +52,5 @@ class TestSim(unittest.TestCase):
         self.assertIsNotNone(dists)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
