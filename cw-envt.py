@@ -93,7 +93,7 @@ p.setAdditionalSearchPath('shapes/')
 # mountain = p.loadURDF("mountain.urdf", mountain_position, mountain_orientation, useFixedBase=1)
 # mountain = p.loadURDF("mountain_with_cubes.urdf", mountain_position, mountain_orientation, useFixedBase=1)
 
-mountain = p.loadURDF("gaussian_pyramid.urdf", mountain_position, mountain_orientation, useFixedBase=1)
+mountain = p.loadURDF("mountain.urdf", mountain_position, mountain_orientation, useFixedBase=1)
 
 # generate a random creature
 cr = creature.Creature(gene_count=3)
@@ -104,3 +104,5 @@ with open('test.urdf', 'w') as f:
 rob1 = p.loadURDF('test.urdf', (0, 0, 10))
 
 p.setRealTimeSimulation(1)
+while p.isConnected():
+    pass
