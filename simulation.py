@@ -9,6 +9,7 @@ class Simulation:
         self.sim_id = sim_id
 
     def run_creature(self, cr, iterations=2400):
+        self.physicsClientId = p.connect(p.DIRECT)
         pid = self.physicsClientId
         p.resetSimulation(physicsClientId=pid)
         p.setPhysicsEngineParameter(enableFileCaching=0, physicsClientId=pid)
