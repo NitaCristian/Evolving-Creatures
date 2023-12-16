@@ -1,7 +1,9 @@
-import unittest
-import genome
-import numpy as np
 import os
+import unittest
+
+import numpy as np
+
+import genome
 
 
 class GenomeTest(unittest.TestCase):

@@ -1,9 +1,11 @@
 import os
-import genome
 import sys
-import creature
-import pybullet as p
+
 import numpy as np
+import pybullet as p
+
+import creature
+import genome
 
 
 # ... usual starter code to create a sim and floor

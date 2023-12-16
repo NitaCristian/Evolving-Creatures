@@ -1,6 +1,7 @@
-import random
-from noise import pnoise2
 import math
+import random
+
+from noise import pnoise2
 
 
 # def write_to_obj(filename, vertices, indices):

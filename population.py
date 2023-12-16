@@ -1,5 +1,6 @@
-import creature
 import numpy as np
+
+import creature
 
 
 class Population:

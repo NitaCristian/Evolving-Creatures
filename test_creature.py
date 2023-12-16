@@ -1,6 +1,8 @@
 import unittest
-import creature
+
 import pybullet as p
+
+import creature
 
 
 class TestCreature(unittest.TestCase):

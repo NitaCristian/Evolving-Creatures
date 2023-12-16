@@ -1,7 +1,9 @@
-import genome
-from xml.dom.minidom import getDOMImplementation
 from enum import Enum
+from xml.dom.minidom import getDOMImplementation
+
 import numpy as np
+
+import genome
 
 
 class MotorType(Enum):

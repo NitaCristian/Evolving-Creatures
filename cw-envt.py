@@ -1,8 +1,10 @@
+import math
+import random
+
 import pybullet as p
 import pybullet_data
+
 import creature
-import random
-import math
 
 p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())

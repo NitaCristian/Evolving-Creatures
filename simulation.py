@@ -1,5 +1,6 @@
-import pybullet as p
 from multiprocessing import Pool
+
+import pybullet as p
 
 
 class Simulation:
@@ -37,7 +38,7 @@ class Simulation:
 
     def update_motors(self, cid, cr):
         """
-        cid is the id in the physics engine
+        cid is id in the physics engine
         cr is a creature object
         """
         for jid in range(p.getNumJoints(cid,
@@ -56,7 +57,7 @@ class Simulation:
             self.run_creature(cr, 2400)
 
 
-class ThreadedSim():
+class ThreadedSim:
     def __init__(self, pool_size):
         self.sims = [Simulation(i) for i in range(pool_size)]
 
