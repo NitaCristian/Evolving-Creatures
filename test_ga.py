@@ -10,8 +10,8 @@ from simulation import ThreadedSim
 
 class TestGA(unittest.TestCase):
     def test_basic_ga(self):
-        pop = Population(pop_size=10, gene_count=3)
-        sim = ThreadedSim(pool_size=1)
+        pop = Population(pop_size=20, gene_count=5)
+        sim = ThreadedSim(pool_size=10)
         # sim = simulation.Simulation()
 
         for iteration in range(1000):
@@ -51,7 +51,7 @@ class TestGA(unittest.TestCase):
                     new_cr = Creature(1)
                     new_cr.update_dna(cr.dna)
                     new_creatures[0] = new_cr
-                    filename = "elite_" + str(iteration) + ".csv"
+                    filename = "output/elite_" + str(iteration) + ".csv"
                     Genome.to_csv(cr.dna, filename)
                     break
 

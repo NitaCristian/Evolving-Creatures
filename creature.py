@@ -25,9 +25,9 @@ class Motor:
         self.phase = (self.phase + self.freq) % (np.pi * 2)
         if self.motor_type == MotorType.PULSE:
             if self.phase < np.pi:
-                output = 1
+                output = 5
             else:
-                output = -1
+                output = -5
 
         if self.motor_type == MotorType.SINE:
             output = np.sin(self.phase)

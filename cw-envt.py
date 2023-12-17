@@ -8,6 +8,8 @@ import creature
 
 p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
+p.setGravity(0, 0, -10)
+p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
 
 
 def make_mountain(num_rocks=100, max_size=0.25, arena_size=10, mountain_height=5):
@@ -80,19 +82,15 @@ def make_arena(arena_size=10, wall_height=1):
                       basePosition=[-arena_size / 2, 0, wall_height / 2])
 
 
-p.setGravity(0, 0, -10)
-
 arena_size = 20
 make_arena(arena_size=arena_size)
-
-# make_rocks(arena_size=arena_size)
+make_rocks(arena_size=arena_size)
 
 mountain_position = (0, 0, -1)  # Adjust as needed
 mountain_orientation = p.getQuaternionFromEuler((0, 0, 0))
 p.setAdditionalSearchPath('shapes/')
 # mountain = p.loadURDF("mountain.urdf", mountain_position, mountain_orientation, useFixedBase=1)
 # mountain = p.loadURDF("mountain_with_cubes.urdf", mountain_position, mountain_orientation, useFixedBase=1)
-
 mountain = p.loadURDF("mountain.urdf", mountain_position, mountain_orientation, useFixedBase=1)
 
 # generate a random creature
