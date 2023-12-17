@@ -102,8 +102,12 @@ class Creature:
             return 0
         p1 = np.asarray(self.start_position)
         p2 = np.asarray(self.last_position)
-        dist = np.linalg.norm(p1 - p2)
-        return dist
+        distance_traveled = np.linalg.norm(p1 - p2)
+
+        p3 = np.asarray([0, 0, 4])
+        distance_to_target = np.linalg.norm(p2 - p3)
+
+        return 0.5 * distance_traveled + 1.0 * distance_to_target
 
     def update_dna(self, dna):
         self.dna = dna

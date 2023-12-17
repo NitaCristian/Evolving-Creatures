@@ -28,10 +28,10 @@ class TestCreature(unittest.TestCase):
     def test_load_xml(self):
         c = Creature(gene_count=20)
         xml_str = c.to_xml()
-        with open('test.urdf', 'w') as f:
+        with open('models/test.urdf', 'w') as f:
             f.write(xml_str)
         p.connect(p.DIRECT)
-        cid = p.loadURDF('test.urdf')
+        cid = p.loadURDF('models/test.urdf')
         self.assertIsNotNone(cid)
 
     def test_motor_exists(self):
