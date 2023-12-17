@@ -72,7 +72,7 @@ def main(csv_file):
 
     arena_size = 20
     make_arena(arena_size=arena_size)
-    # make_rocks(arena_size=arena_size)
+    make_rocks(arena_size=arena_size)
 
     mountain_position = (0, 0, -1)  # Adjust as needed
     mountain_orientation = p.getQuaternionFromEuler((0, 0, 0))

@@ -100,14 +100,33 @@ class Creature:
     def get_distance_travelled(self):
         if self.start_position is None or self.last_position is None:
             return 0
+
+        # Calculate distance traveled
         p1 = np.asarray(self.start_position)
         p2 = np.asarray(self.last_position)
         distance_traveled = np.linalg.norm(p1 - p2)
 
+        # Calculate distance to the target
         p3 = np.asarray([0, 0, 4])
         distance_to_target = np.linalg.norm(p2 - p3)
 
-        return 0.5 * distance_traveled + 1.0 * distance_to_target
+        # Calculate the direction of movement
+        movement_direction = np.dot((p2 - p1) / distance_traveled, (p3 - p2) / distance_to_target)
+
+        # Reward forward movement, penalize backward movement
+        movement_reward = max(0, movement_direction)
+
+        # Assign weights based on importance
+        weight_distance_traveled = 0.5
+        weight_distance_to_target = 1.0
+
+        # Calculate the final fitness
+        fitness = (
+                weight_distance_traveled * distance_traveled +
+                weight_distance_to_target * (1.0 - movement_reward)  # Penalize backward movement
+        )
+
+        return fitness
 
     def update_dna(self, dna):
         self.dna = dna
