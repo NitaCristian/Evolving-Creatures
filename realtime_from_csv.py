@@ -72,7 +72,7 @@ def main(csv_file):
 
     arena_size = 20
     make_arena(arena_size=arena_size)
-    make_rocks(arena_size=arena_size)
+    # make_rocks(arena_size=arena_size)
 
     mountain_position = (0, 0, -1)  # Adjust as needed
     mountain_orientation = p.getQuaternionFromEuler((0, 0, 0))
@@ -114,8 +114,9 @@ def main(csv_file):
                                         targetVelocity=vel)
             new_pos, orn = p.getBasePositionAndOrientation(rob1)
             # print(new_pos)
+            cr.update_position(new_pos)
             dist_moved = np.linalg.norm(np.asarray([0, 0, 4]) - np.asarray(new_pos))
-            print(dist_moved)
+            print(cr.get_distance_travelled())
         time.sleep(wait_time)
         elapsed_time += wait_time
         if elapsed_time > total_time:

@@ -22,12 +22,12 @@ class Motor:
         self.phase = 0
 
     def get_output(self):
-        self.phase = (self.phase + self.freq) % (np.pi * 2)
+        self.phase = (self.phase + self.freq) % (np.pi * 2) + 20
         if self.motor_type == MotorType.PULSE:
             if self.phase < np.pi:
-                output = 5
+                output = 15
             else:
-                output = -5
+                output = -15
 
         if self.motor_type == MotorType.SINE:
             output = np.sin(self.phase)
@@ -110,23 +110,9 @@ class Creature:
         p3 = np.asarray([0, 0, 4])
         distance_to_target = np.linalg.norm(p2 - p3)
 
-        # Calculate the direction of movement
-        movement_direction = np.dot((p2 - p1) / distance_traveled, (p3 - p2) / distance_to_target)
+        max_distance_to_target = np.linalg.norm(p1 - p3)
 
-        # Reward forward movement, penalize backward movement
-        movement_reward = max(0, movement_direction)
-
-        # Assign weights based on importance
-        weight_distance_traveled = 0.5
-        weight_distance_to_target = 1.0
-
-        # Calculate the final fitness
-        fitness = (
-                weight_distance_traveled * distance_traveled +
-                weight_distance_to_target * (1.0 - movement_reward)  # Penalize backward movement
-        )
-
-        return fitness
+        return max_distance_to_target / distance_to_target
 
     def update_dna(self, dna):
         self.dna = dna

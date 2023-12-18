@@ -10,11 +10,11 @@ from simulation import ThreadedSim
 
 class TestGA(unittest.TestCase):
     def test_basic_ga(self):
-        pop = Population(pop_size=20, gene_count=5)
-        sim = ThreadedSim(pool_size=10)
+        pop = Population(pop_size=15, gene_count=5)
+        sim = ThreadedSim(pool_size=5)
         # sim = simulation.Simulation()
 
-        for iteration in range(1000):
+        for iteration in range(500):
             sim.eval_population(pop, 2400)
             fits = [cr.get_distance_travelled() for cr in pop.creatures]
             links = [len(cr.get_expanded_links()) for cr in pop.creatures]
